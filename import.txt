@@ -1,0 +1,68 @@
+import java.util.Date;
+
+class MonitorSystem {
+    private boolean isRunning;
+    
+    public MonitorSystem() {
+        isRunning = false;
+    }
+    
+    public void start() {
+        if (!isRunning) {
+            isRunning = true;
+            System.out.println("Monitoring system started.");
+        } else {
+            System.out.println("Monitoring system is already running.");
+        }
+    }
+    
+    public void stop() {
+        if (isRunning) {
+            isRunning = false;
+            System.out.println("Monitoring system stopped.");
+        } else {
+            System.out.println("Monitoring system is not running.");
+        }
+    }
+    
+    public boolean getStatus() {
+        return isRunning;
+    }
+    
+    public void checkStatus() {
+        if (isRunning) {
+            System.out.println("Monitoring system is currently running.");
+        } else {
+            System.out.println("Monitoring system is currently stopped.");
+        }
+    }
+    
+    public void logEvent(String event) {
+        if (isRunning) {
+            Date timestamp = new Date();
+            System.out.println("[" + timestamp + "] " + event);
+        } else {
+            System.out.println("Monitoring system is currently stopped. Cannot log event.");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MonitorSystem monitor = new MonitorSystem();
+        
+        monitor.checkStatus(); // Monitoring system is currently stopped.
+        
+        monitor.start(); // Monitoring system started.
+        
+        monitor.checkStatus(); // Monitoring system is currently running.
+        
+        monitor.logEvent("An event occurred."); // [Sat Feb 26 11:24:07 UTC 2024] An event occurred.
+        
+        monitor.stop(); // Monitoring system stopped.
+        
+        monitor.checkStatus(); // Monitoring system is currently stopped.
+        
+        monitor.logEvent("Another event occurred."); // Monitoring system is currently stopped. Cannot log event.
+    }
+}
